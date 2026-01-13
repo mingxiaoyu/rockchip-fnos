@@ -50,7 +50,7 @@ jobs:
       - name: List all devices for release
         id: all-devices
         run: |
-          ALL_DEVICES=$(ls -1 uboot | jq -R -s -c 'split("\n")[:-1]')
+          ALL_DEVICES=$(ls -1 uboot | tr '\n' ',' | sed 's/,$//')
           echo "all_devices=$ALL_DEVICES" >> "$GITHUB_OUTPUT"
 
   build:
@@ -128,8 +128,8 @@ jobs:
           body: |
             🎉 基于 FNOS ARM 镜像二次打包
             根目录默认大小: ${{ github.event.inputs.ROOT_SIZE }} GiB
-            支持设备: ${{ fromJson(needs.prepare.outputs.all-devices.outputs.all_devices) | join(", ") }}
-
+            支持设备: ${{ needs.prepare.outputs.all_devices }}
+          
             🎉 FNOS ARM re-packaged image
             Default root size: ${{ github.event.inputs.ROOT_SIZE }} GiB
-            Supported devices: ${{ fromJson(needs.prepare.outputs.all-devices.outputs.all_devices) | join(", ") }}
+            Supported devices: ${{ needs.prepare.outputs.all_devices }}
