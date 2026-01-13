@@ -102,8 +102,13 @@ jobs:
           mkdir -p fnnas-arm64
           xz -d -c "${{ steps.download.outputs.filename }}" > fnnas-arm64/fnnas-arm64.img
 
-      - name: Build device image (logs hidden)
+      - name: Build device image
+        env:
+          DEVICE: ${{ matrix.device }}
+          ROOT_SIZE: ${{ github.event.inputs.ROOT_SIZE }}
         run: |
+          echo "🔧 DEVICE=$DEVICE"
+          echo "🔧 ROOT_SIZE=$ROOT_SIZE
           mkdir -p build-logs
           bash actionbuild/buildfnos.sh &> build-logs/${{ matrix.device }}.log || true
 
