@@ -22,6 +22,7 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
       tag: ${{ steps.set-tag.outputs.tag }}
+      all_devices: ${{ steps.all-devices.outputs.all_devices }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
