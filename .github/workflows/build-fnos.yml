@@ -113,7 +113,7 @@ jobs:
       - name: Upload private build logs
         uses: actions/upload-artifact@v4
         with:
-          name: private-build-logs
+          name: private-build-logs-${{ matrix.device }}-${{ github.run_number }}
           path: build-logs/
 
       - name: Compress built image
