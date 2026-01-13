@@ -108,7 +108,10 @@ jobs:
           ROOT_SIZE: ${{ github.event.inputs.ROOT_SIZE }}
         run: |
           mkdir -p build-logs
-          bash actionbuild/buildfnos.sh &> build-logs/${{ matrix.device }}.log || true
+          bash actionbuild/buildfnos.sh &> build-logs/${DEVICE}.log || (
+            cat build-logs/${DEVICE}.log
+            exit 1
+          )
 
       - name: Upload private build logs
         uses: actions/upload-artifact@v4
