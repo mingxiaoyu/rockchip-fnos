@@ -1,0 +1,13 @@
+declare -i UBOOT_NUM_TARGETS=1
+declare UBOOT_BIN_DIR="/usr/lib/linux-u-boot-current-orangepi5-plus"
+declare UBOOT_VERSION="2024.10-rc3"
+declare UBOOT_ARTIFACT_VERSION="2024.10-rc3-Sd11a-P01f1-H89d7-V74ff-Bb703-R448a"
+declare UBOOT_GIT_REVISION="d11a60610e17373331ad17b6c5c31735cf9fffa8"
+declare UBOOT_GIT_SOURCE="https://github.com/u-boot/u-boot.git"
+declare UBOOT_GIT_BRANCH="tag:v2024.10-rc3"
+declare UBOOT_GIT_PATCHDIR="v2024.10"
+declare UBOOT_PARTITION_TYPE="gpt"
+declare UBOOT_KERNEL_DTB="rockchip/rk3588-orangepi-5-plus.dtb"
+declare UBOOT_KERNEL_SERIALCON="ttyS2"
+declare UBOOT_EXTLINUX_PREFER="no"
+declare UBOOT_EXTLINUX_CMDLINE=""

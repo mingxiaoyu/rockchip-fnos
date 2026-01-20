@@ -1,0 +1,13 @@
+declare -i UBOOT_NUM_TARGETS=1
+declare UBOOT_BIN_DIR="/usr/lib/linux-u-boot-current-odroidm1"
+declare UBOOT_VERSION="2025.01"
+declare UBOOT_ARTIFACT_VERSION="2025.01-S6d41-Pdb4b-H4cab-V390e-Bb703-R448a"
+declare UBOOT_GIT_REVISION="6d41f0a39d6423c8e57e92ebbe9f8c0333a63f72"
+declare UBOOT_GIT_SOURCE="https://github.com/u-boot/u-boot"
+declare UBOOT_GIT_BRANCH="tag:v2025.01"
+declare UBOOT_GIT_PATCHDIR="v2025.01"
+declare UBOOT_PARTITION_TYPE="gpt"
+declare UBOOT_KERNEL_DTB="rockchip/rk3568-odroid-m1.dtb"
+declare UBOOT_KERNEL_SERIALCON="ttyS2"
+declare UBOOT_EXTLINUX_PREFER="no"
+declare UBOOT_EXTLINUX_CMDLINE=""

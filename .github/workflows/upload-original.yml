@@ -1,0 +1,45 @@
+name: Upload File to Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      FILE_URL:
+        description: "File URL to download and upload to release"
+        required: true
+
+
+permissions:
+  contents: write
+
+jobs:
+  upload:
+    name: Upload file to release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Download file from URL
+        id: download
+        run: |
+          set -e
+          URL="${{ github.event.inputs.FILE_URL }}"
+          FILENAME=$(basename "$URL" | cut -d'?' -f1)
+          echo "Downloading from: $URL"
+          curl -L -o "$FILENAME" "$URL"
+          if [ ! -f "$FILENAME" ]; then
+            echo "❌ Failed to download file"
+            exit 1
+          fi
+          echo "filename=$FILENAME" >> "$GITHUB_OUTPUT"
+          echo "✅ Downloaded: $FILENAME"
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "original_fnos"
+          files: ${{ steps.download.outputs.filename }}
+          body: |
+            📦 原始 FNOS 镜像文件
+            
+            🎉 Original FNOS Image File
+            

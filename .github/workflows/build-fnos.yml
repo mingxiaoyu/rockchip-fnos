@@ -37,21 +37,29 @@ jobs:
         run: |
           set -e
           INPUT_DEVICE="${{ github.event.inputs.DEVICE }}"
+          ALL_DEVICES=$(find uboot -mindepth 2 -maxdepth 2 -type d | sed 's|^uboot/||' | sort)
           if [ -n "$INPUT_DEVICE" ]; then
-            if [ ! -d "uboot/$INPUT_DEVICE" ]; then
+            INPUT_LOWER=$(echo "$INPUT_DEVICE" | tr '[:upper:]' '[:lower:]')
+            MATCH=$(echo "$ALL_DEVICES" | awk -v target="$INPUT_LOWER" '
+              { orig=$0; lower=tolower(orig); split(orig, parts, "/"); leaf=tolower(parts[length(parts)]); }
+              lower==target { print orig; exit }
+              leaf==target { candidate=orig }
+              END { if (candidate) print candidate }
+            ')
+            if [ -z "$MATCH" ]; then
               echo "❌ Device not found: $INPUT_DEVICE"
               exit 1
             fi
-            DEVICES="[\"$INPUT_DEVICE\"]"
+            DEVICES=$(printf '["%s"]' "$MATCH")
           else
-            DEVICES=$(ls -1 uboot | jq -R -s -c 'split("\n")[:-1]')
+            DEVICES=$(printf "%s\n" "$ALL_DEVICES" | jq -R -s -c 'split("\n")[:-1]')
           fi
           echo "matrix={\"device\":$DEVICES}" >> "$GITHUB_OUTPUT"
 
       - name: List all devices for release
         id: all-devices
         run: |
-          ALL_DEVICES=$(ls -1 uboot | tr '\n' ',' | sed 's/,$//')
+          ALL_DEVICES=$(find uboot -mindepth 2 -maxdepth 2 -type d | sed 's|^uboot/||' | sort | tr '\n' ',' | sed 's/,$//')
           echo "all_devices=$ALL_DEVICES" >> "$GITHUB_OUTPUT"
 
   build:
@@ -104,20 +112,20 @@ jobs:
           xz -d -c "${{ steps.download.outputs.filename }}" > fnnas-arm64/fnnas-arm64.img
 
       - name: Build device image
-        env:
-          DEVICE: ${{ matrix.device }}
-          ROOT_SIZE: ${{ github.event.inputs.ROOT_SIZE }}
         run: |
+          DEVICE_PATH="${{ matrix.device }}"
+          export DEVICE=$(basename "$DEVICE_PATH")
+          export ROOT_SIZE="${{ github.event.inputs.ROOT_SIZE }}"
           mkdir -p build-logs
-          bash actionbuild/buildfnos.sh &> build-logs/${DEVICE}.log || (
-            cat build-logs/${DEVICE}.log
+          bash actionbuild/buildfnos.sh &> "build-logs/${DEVICE}.log" || (
+            cat "build-logs/${DEVICE}.log"
             exit 1
           )
 
       - name: Upload private build logs
         uses: actions/upload-artifact@v4
         with:
-          name: private-build-logs-${{ matrix.device }}-${{ github.run_number }}
+          name: private-build-logs-$(basename "${{ matrix.device }}")-${{ github.run_number }}
           path: build-logs/
 
       - name: Compress built image

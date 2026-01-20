@@ -1,0 +1,13 @@
+declare -i UBOOT_NUM_TARGETS=2
+declare UBOOT_BIN_DIR="/usr/lib/linux-u-boot-current-nanopi-m6"
+declare UBOOT_VERSION="2017.09"
+declare UBOOT_ARTIFACT_VERSION="2017.09-S45aa-Pa56c-H3a59-Vf498-Bb703-R448a"
+declare UBOOT_GIT_REVISION="45aa10f3ced32f45bb336fb38925f14ac924c98e"
+declare UBOOT_GIT_SOURCE="https://github.com/radxa/u-boot.git"
+declare UBOOT_GIT_BRANCH="branch:next-dev-v2024.10"
+declare UBOOT_GIT_PATCHDIR="legacy/u-boot-radxa-rk35xx"
+declare UBOOT_PARTITION_TYPE="gpt"
+declare UBOOT_KERNEL_DTB="rockchip/rk3588s-nanopi-m6.dtb"
+declare UBOOT_KERNEL_SERIALCON="ttyS2"
+declare UBOOT_EXTLINUX_PREFER="no"
+declare UBOOT_EXTLINUX_CMDLINE=""
