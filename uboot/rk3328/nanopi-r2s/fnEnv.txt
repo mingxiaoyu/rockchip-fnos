@@ -1,0 +1,5 @@
+verbosity=1
+bootlogo=false
+console=both
+extraargs=cma=256M
+fdtfile=rockchip/rk3328-nanopi-r2-rev00.dtb

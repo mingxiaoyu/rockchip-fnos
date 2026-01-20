@@ -1,0 +1,13 @@
+declare -i UBOOT_NUM_TARGETS=1
+declare UBOOT_BIN_DIR="/usr/lib/linux-u-boot-edge-rock-5b-plus"
+declare UBOOT_VERSION="2024.10"
+declare UBOOT_ARTIFACT_VERSION="2024.10-Sf919-P01f1-H1056-V6430-Bb703-R448a"
+declare UBOOT_GIT_REVISION="f919c3a889f0ec7d63a48b5d0ed064386b0980bd"
+declare UBOOT_GIT_SOURCE="https://github.com/u-boot/u-boot.git"
+declare UBOOT_GIT_BRANCH="tag:v2024.10"
+declare UBOOT_GIT_PATCHDIR="v2024.10"
+declare UBOOT_PARTITION_TYPE="gpt"
+declare UBOOT_KERNEL_DTB="rockchip/rk3588-rock-5b-plus.dtb"
+declare UBOOT_KERNEL_SERIALCON="ttyS2"
+declare UBOOT_EXTLINUX_PREFER="no"
+declare UBOOT_EXTLINUX_CMDLINE=""

@@ -1,0 +1,13 @@
+declare -i UBOOT_NUM_TARGETS=1
+declare UBOOT_BIN_DIR="/usr/lib/linux-u-boot-vendor-nanopi-r76s"
+declare UBOOT_VERSION="2017.09"
+declare UBOOT_ARTIFACT_VERSION="2017.09-Sa317-Pc92f-H4003-Va15a-Bb703-R448a"
+declare UBOOT_GIT_REVISION="a3173ae8a83cb05c78bccfa7cd73ed4b591e67ef"
+declare UBOOT_GIT_SOURCE="https://github.com/radxa/u-boot.git"
+declare UBOOT_GIT_BRANCH="branch:next-dev-v2024.10"
+declare UBOOT_GIT_PATCHDIR="legacy/u-boot-radxa-rk35xx"
+declare UBOOT_PARTITION_TYPE="gpt"
+declare UBOOT_KERNEL_DTB="rockchip/rk3576-nanopi-r76s.dtb"
+declare UBOOT_KERNEL_SERIALCON="ttyS0"
+declare UBOOT_EXTLINUX_PREFER="no"
+declare UBOOT_EXTLINUX_CMDLINE=""
