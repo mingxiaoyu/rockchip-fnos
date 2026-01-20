@@ -112,10 +112,12 @@ jobs:
           xz -d -c "${{ steps.download.outputs.filename }}" > fnnas-arm64/fnnas-arm64.img
 
       - name: Build device image
+        id: build
         run: |
           DEVICE_PATH="${{ matrix.device }}"
           export DEVICE=$(basename "$DEVICE_PATH")
           export ROOT_SIZE="${{ github.event.inputs.ROOT_SIZE }}"
+          echo "device_name=$DEVICE" >> "$GITHUB_OUTPUT"
           mkdir -p build-logs
           bash actionbuild/buildfnos.sh &> "build-logs/${DEVICE}.log" || (
             cat "build-logs/${DEVICE}.log"
@@ -125,7 +127,7 @@ jobs:
       - name: Upload private build logs
         uses: actions/upload-artifact@v4
         with:
-          name: private-build-logs-${{ replace(matrix.device, '/', '-') }}-${{ github.run_number }}
+          name: private-build-logs-${{ steps.build.outputs.device_name }}-${{ github.run_number }}
           path: build-logs/
 
       - name: Compress built image
